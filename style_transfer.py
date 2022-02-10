@@ -58,7 +58,8 @@ class NST:
     def __init__(self, content_img, style_img, imsize=300, num_steps=500,
                  style_weight=100000, content_weight=1):
 
-        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        # self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        self.device = "cpu"
         self.imsize = imsize
         self.style_img = self.image_loader(style_img)
         self.content_img = self.image_loader(content_img)
@@ -137,14 +138,14 @@ class NST:
 
         if not CNN:
             CNN = torch.load('my_models/vgg19.pth', ).to(self.device).eval()
-
+        print("CNN loaded")
         model, style_losses, content_losses = self.get_style_model_and_losses()
+        print("losses loaded")
         optimizer = self.get_input_optimizer()
 
         run = [0]
         while run[0] <= self.num_steps:
-            print(run[0])
-
+            # print(run[0])
 
             def closure():
                 self.input_img.data.clamp_(0, 1)
