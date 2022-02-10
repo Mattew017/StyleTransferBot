@@ -188,6 +188,9 @@ async def get_image(message):
         del photo_buffer[message.chat.id]
 
 
+async def on_startup(dp):
+    await bot.set_webhook(urljoin(WEBHOOK_HOST, webhook_path),drop_pending_updates=True)
+
 if __name__ == '__main__':
     if CONNECTION_TYPE == 'POLLING':
         executor.start_polling(dp, skip_updates=True)
@@ -196,15 +199,14 @@ if __name__ == '__main__':
         # webhook setting
         webhook_path = f'/webhook/{BOT_TOKEN}'
         webhook_url = urljoin(WEBHOOK_HOST, webhook_path)
-
         # webserver setting
-        webapp_host = '127.0.0.1'
+        webapp_host = '0.0.0.0'
         webapp_port = int(os.environ.get('PORT', WEBAPP_PORT))
 
         executor.start_webhook(
             dispatcher=dp,
             webhook_path=webhook_path,
             skip_updates=True,
+            on_startup=on_startup,
             host=webapp_host,
             port=webapp_port)
-    executor.start_polling(dp, skip_updates=True)
