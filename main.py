@@ -41,7 +41,7 @@ def tensor2img(tensor):
 
 
 def simple_style_transfer(content_img, style_img, *params):
-    model = NST(content_img, style_img, *params) # создание простой NST модели
+    model = NST(content_img, style_img, *params)  # создание простой NST модели
     output = model.transfer()
     return tensor2img(output)
 
@@ -155,9 +155,8 @@ async def get_image(message):
             # simple style transfer
             await bot.send_message(message.chat.id, "Начинаю обрабатывать, ждите...")
             # try:
-            await bot.send_message(message.chat.id, "start")
-            output = simple_style_transfer(photo_buffer[message.chat.id].content, photo_buffer[message.chat.id].style, *PARAMS)
-            await bot.send_message(message.chat.id, f"end, {output.shape}")
+            #output = simple_style_transfer(photo_buffer[message.chat.id].content, photo_buffer[message.chat.id].style, *PARAMS)
+            output = photo_buffer[message.chat.id].content
             await bot.send_document(message.chat.id, deepcopy(output))
             await bot.send_photo(message.chat.id, output)
 
@@ -177,7 +176,7 @@ async def get_image(message):
         try:
             if photo_buffer[message.chat.id].type == "vangogh":  # если нужно применить стиль Ван Гога
                 output = tensor2img(gan_vangogh.transfer(photo))
-            else: # если нужно применить стиль картин Моне
+            else:  # если нужно применить стиль картин Моне
                 output = tensor2img(gan_monet.transfer(photo))
             await bot.send_document(message.chat.id, deepcopy(output))
             await bot.send_photo(message.chat.id, output)
