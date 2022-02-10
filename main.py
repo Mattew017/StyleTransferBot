@@ -156,7 +156,10 @@ async def get_image(message):
             await bot.send_message(message.chat.id, "Начинаю обрабатывать, ждите...")
             # try:
             #output = simple_style_transfer(photo_buffer[message.chat.id].content, photo_buffer[message.chat.id].style, *PARAMS)
-            output = photo_buffer[message.chat.id].content
+            model = NST(photo_buffer[message.chat.id].content, photo_buffer[message.chat.id].style, *PARAMS)  # создание простой NST модели
+            await bot.send_message(message.chat.id, "model created")
+            output = tensor2img(model.transfer())
+            await bot.send_message(message.chat.id, "transfered")
             await bot.send_document(message.chat.id, deepcopy(output))
             await bot.send_photo(message.chat.id, output)
 
