@@ -154,28 +154,15 @@ async def get_image(message):
             photo_buffer[message.chat.id].style = photo
             # simple style transfer
             await bot.send_message(message.chat.id, "Начинаю обрабатывать, ждите...")
-            # try:
-            #output = simple_style_transfer(photo_buffer[message.chat.id].content, photo_buffer[message.chat.id].style, *PARAMS)
-            model = NST(photo_buffer[message.chat.id].content, photo_buffer[message.chat.id].style, *PARAMS)  # создание простой NST модели
-            await bot.send_message(message.chat.id, "model created")
-            print("model created")
             try:
-                output = model.transfer()
-                output = tensor2img(output)
+                output = simple_style_transfer(photo_buffer[message.chat.id].content, photo_buffer[message.chat.id].style, *PARAMS)
+                await bot.send_document(message.chat.id, deepcopy(output))
+                await bot.send_photo(message.chat.id, output)
             except Exception as err:
-                await bot.send_message(message.chat.id, err)
-            # output = tensor2img(model.transfer())
-            await bot.send_message(message.chat.id, "transfered")
-            await bot.send_document(message.chat.id, deepcopy(output))
-            await bot.send_photo(message.chat.id, output)
-
-            # except Exception as err:
-            #     print(err)
-            #     await bot.send_message(message.chat.id, err)
+                print(err)
 
             await bot.send_message(message.chat.id,
                                    "Что будем делать дальше?", reply_markup=start_kb)
-
             del photo_buffer[message.chat.id]
 
     else:

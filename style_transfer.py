@@ -138,9 +138,7 @@ class NST:
 
         if not CNN:
             CNN = torch.load('my_models/vgg19.pth', ).to(self.device).eval()
-        print("CNN loaded")
         model, style_losses, content_losses = self.get_style_model_and_losses()
-        print("losses loaded")
         optimizer = self.get_input_optimizer()
 
         run = [0]
