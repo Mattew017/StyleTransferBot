@@ -1,0 +1,8 @@
+-f https://download.pytorch.org/whl/torch_stable.html
+numpy==1.21.2
+Pillow==8.4.0
+aiogram==2.18
+torchvision==0.11.3+cpu
+torch==1.10.2+cpu
+
+
