@@ -155,12 +155,15 @@ async def get_image(message):
             # simple style transfer
             await bot.send_message(message.chat.id, "Начинаю обрабатывать, ждите...")
             try:
+                await bot.send_message(message.chat.id, "start")
                 output = simple_style_transfer(photo_buffer[message.chat.id].content, photo_buffer[message.chat.id].style, *PARAMS)
+                await bot.send_message(message.chat.id, f"end, {output.shape}")
                 await bot.send_document(message.chat.id, deepcopy(output))
                 await bot.send_photo(message.chat.id, output)
 
             except Exception as err:
                 print(err)
+                await bot.send_message(message.chat.id, err)
 
             await bot.send_message(message.chat.id,
                                    "Что будем делать дальше?", reply_markup=start_kb)
