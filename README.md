@@ -1,4 +1,6 @@
 # Style transfer telegram bot
+Bot username: **@Xxx_NeuralStyleTransferBot**
+
 Данный бот для телеграма переносит стиль с одних фотографий на другие.
 
 ## Режимы работы бота
