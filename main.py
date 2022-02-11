@@ -13,8 +13,8 @@ from gan import GAN
 
 from config import *
 
-gan_vangogh = GAN("vangogh")  # GAN
-gan_monet = GAN("monet")  # GAN
+gan_vangogh = GAN("vangogh")  # GAN Van Gogh
+gan_monet = GAN("monet")  # GAN Monet
 
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher(bot)

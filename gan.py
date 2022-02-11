@@ -15,7 +15,7 @@ class GAN:
         for p in self.model.parameters():
             p.requires_grad = False
 
-    def transfer(self, img_path, imsize=256):
+    def transfer(self, img_path, imsize=512):
         img = self.image_loader(img_path, imsize)
         result = self.model(img)
         result = result.add(1).div(2)  # [-1;1] -> [0;1]

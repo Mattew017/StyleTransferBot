@@ -3,5 +3,5 @@ CONNECTION_TYPE = "POLLING"
 WEBHOOK_HOST = "https://style-transfer-bot-telegram.herokuapp.com"
 WEBAPP_PORT = 5000
 MAX_EPOCH = 300
-IMAGE_SIZE = 256
+IMAGE_SIZE = 512
 PARAMS = [IMAGE_SIZE, MAX_EPOCH]
